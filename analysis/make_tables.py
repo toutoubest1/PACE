@@ -1,5 +1,4 @@
-"""Convert raw per-replicate CSVs into the paper's tables (Markdown, CSV and LaTeX).
-Usage:  python analysis/make_tables.py            (writes results/tables/*)"""
+"""Convert raw per-replicate CSVs into the tables (Markdown, CSV and LaTeX).  """
 import os, sys, glob
 import numpy as np, pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
