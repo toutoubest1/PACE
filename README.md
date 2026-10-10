@@ -58,6 +58,3 @@ Real-data download scripts use the cBioPortal DataHub `ccle_broad_2019` study an
 
 Sparse LTS, Huber-Lasso, Filter-MICE-LTS and IPW-LPD-Lasso are Python reimplementations for this study, rather than reference R implementations. The radial-weighting baseline retains diagnostic options for earlier implementation defects; corrected settings are the default.
 
-## License
-
-No code license was supplied. The repository owner should select a code license before inviting redistribution or reuse.
