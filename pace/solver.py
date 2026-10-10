@@ -1,7 +1,10 @@
-"""Covariance-form penalised quadratic solvers (Lasso / MCP via LLA), EBIC and moment cross-validation.
+"""Penalised quadratic solvers for Lasso and MCP, with EBIC and moment cross-validation.
 
-Solves   min_b 0.5 b' S b - r' b + sum_j lam_j |b_j|
-on the correlation scale (S standardized to unit diagonal), as in the old code.
+Solves:
+    min_b 0.5 * b.T @ S @ b - r.T @ b + sum_j lam_j * abs(b_j)
+
+The covariance matrix is standardised to unit diagonal before optimisation.
+MCP is fitted using local linear approximation (LLA).
 """
 import numpy as np
 from numba import njit
