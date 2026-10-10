@@ -14,7 +14,7 @@ python3 -m venv .venv
 python3 -m pip install -r requirements.txt
 ```
 
-The dependency versions are retained from the supplied research repository. They have not been revalidated in a fresh environment during this packaging pass.
+
 
 ## Estimator
 
