@@ -32,7 +32,6 @@ beta_hat = fit_pace(Xobs, y, M)
 - `sim/`: simulation generators and method registry.
 - `experiments/`: simulation settings and runners.
 - `analysis/`: summaries, tables and figures generated from local simulation outputs.
-- `paper_tools/`: manuscript table and figure generation.
 - `real_data/scripts/`: download, preprocessing, fitting and analysis.
 - `real_data/data_raw/SHA256SUMS`: expected input-file checksums; no observations or results.
 
