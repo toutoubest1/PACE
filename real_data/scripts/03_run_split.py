@@ -1,7 +1,6 @@
 """One train/test split for one drug, all methods (protocol Sections 3-6).
-Usage: python scripts/03_run_split.py DRUG REP [--debug]
-Writes results/raw/<drug>_r<rep>.csv (metrics) and results/raw/<drug>_r<rep>_coef.npz (slopes).
---debug replaces the response by N(0,1) noise (seed 999) and writes to results/debug/."""
+Usage: python scripts/03_run_split.py DRUG REP [debug]
+debug replaces the response by N(0,1) noise (seed 999) """
 import os, sys, time, warnings
 import numpy as np, pandas as pd
 
