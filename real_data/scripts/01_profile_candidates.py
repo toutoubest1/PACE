@@ -1,6 +1,6 @@
 """Profile the candidate datasets (dimensions and natural missingness) for REAL_DATA_SELECTION.md.
 Uses predictors and response availability only; no model is fitted.
-Output: results/selection_profile.json and printed summary."""
+"""
 import json, os, warnings
 import numpy as np, pandas as pd
 
@@ -21,7 +21,7 @@ def miss_profile(X):
                 distinct_row_patterns=int(m.drop_duplicates().shape[0]))
 
 
-# ---- primary candidate: CCLE proteomics (Nusinow et al. 2020) via cBioPortal ccle_broad_2019
+#primary candidate: CCLE proteomics (Nusinow et al. 2020) via cBioPortal ccle_broad_2019
 P = pd.read_csv(os.path.join(RAW, "data_protein_quantification.txt"), sep="\t", index_col=0)
 X = P.select_dtypes("number").T
 prof = miss_profile(X)
@@ -44,7 +44,7 @@ prof["drugs_with_n_ge_250"] = int((nA >= 250).sum())
 prof["auc_n_per_drug_quantiles"] = np.round(nA.quantile([0, .25, .5, .75, 1]).values, 0).tolist()
 out["ccle_proteomics_gdsc_auc"] = prof
 
-# ---- CPTAC tumour proteomics (cBioPortal)
+# CPTAC tumour proteomics (cBioPortal)
 for s in ["brca_cptac_2020", "luad_cptac_2020"]:
     P = pd.read_csv(os.path.join(CAND, f"{s}__data_protein_quantification.txt"), sep="\t", index_col=0)
     Xs = P.select_dtypes("number").T
@@ -54,7 +54,7 @@ for s in ["brca_cptac_2020", "luad_cptac_2020"]:
     pr["numeric_patient_attributes"] = {c: int(num[c].notna().sum()) for c in num.columns if num[c].notna().sum() > 0}
     out[s] = pr
 
-# ---- riboflavin (hdi): dimensions only (no missing values by construction of the published data)
+# riboflavin (hdi): dimensions only 
 try:
     import rdata
     r = rdata.parser.parse_file(os.path.join(CAND, "riboflavin.rda"))
