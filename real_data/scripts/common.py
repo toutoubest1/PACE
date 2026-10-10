@@ -14,7 +14,7 @@ PANEL = ["Daporinad", "Gemcitabine", "THZ-2-102-1", "Bleomycin", "Trametinib", "
 R_SPLITS = 20
 SEED0 = 8000
 
-# label in paper -> callable(Xobs, y, M) returning slopes (frozen registry settings)
+# label in paper -> callable(Xobs, y, M) returning slopes
 METHODS = {
     "PACE-CF5": lambda X, y, M: fit_pace(X, y, M),
     "PACE-Full": lambda X, y, M: pace(X, y, M, mode="full"),
