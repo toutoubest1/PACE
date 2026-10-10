@@ -32,7 +32,7 @@ class Nuisance:
     s_eps: float
 
 
-# ------------------------------------------------------------------ preparation
+# preparation
 def prepare_cells(Xobs, M, cell="flag", tau=3.5, mu0=None, sd0=None, mu=None, sd=None):
     """Usable-cell indicator U and centred cells Xc.  If (mu0, sd0, mu, sd) are supplied they
     are used as-is (cross-fitting); otherwise they are estimated from these rows."""
@@ -72,7 +72,7 @@ def final_fit(Xc, U, y, omega, penalty="mcp", stab="clip", one_se=True, folds=5,
     return b
 
 
-# ------------------------------------------------------------------ robust pilots
+# robust pilots
 def robust_screen(Xc, U, y, wx, K):
     """Robust marginal screening: weighted Spearman correlation between y and each column
     over its usable rows (ranks bound the influence of vertical outliers)."""
@@ -138,7 +138,7 @@ def pace_fit(Xobs, y, M, penalty="mcp", cell="flag", tau=3.5, use_wx=True, use_w
         b, yc, Sp, ybar = fit(wx, penalty, final=True)
         return _ret(b, return_nuisance, return_info, None, dict(wx=wx, wy=np.ones(n), U=U))
 
-    # ---------------- robust pilot
+    # robust pilot
     def fit_trim(keep, one_se=True):
         idx = np.flatnonzero(keep)
         om = wx[idx]
@@ -202,7 +202,7 @@ def pace_fit(Xobs, y, M, penalty="mcp", cell="flag", tau=3.5, use_wx=True, use_w
     s, b, yc, Sp = best
     b_pilot = b.copy()
 
-    # ---------------- bisquare IRLS
+    # bisquare IRLS
     for it in range(n_irls):
         res, q = RES(Xc, U, yc, b, Sp); res -= np.median(res)
         if it == 0:
@@ -257,7 +257,7 @@ def _screened_lts(Xc, U, y, wx, Ks, p, h, RES, Sp0, n_steps=10, ridge=1e-3):
     return b
 
 
-# ------------------------------------------------------------------ cross-fitting
+# cross-fitting
 def apply_nuisance(Xobs, y, M, nu: Nuisance, k_bisq=4.685, resid="cond", local_scale=False):
     """Weights for new rows computed from a nuisance fitted on *other* rows.
     local_scale=True re-estimates the two scalar residual nuisances (centre and pattern scale) on the
