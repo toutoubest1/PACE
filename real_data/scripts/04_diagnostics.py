@@ -1,10 +1,11 @@
-"""Full-data PACE-CF5 diagnostics per drug and the predictor-only pattern-distortion diagnostic
-(protocol Section 7).  Usage: python scripts/04_diagnostics.py [--debug]
-Outputs (results/raw/ or results/debug/):
-  diag_weights_<drug>.csv   per-line weights (w_x, w_y, omega), row missing rate, batch, lineage
-  diag_cells_<drug>.json    flagged-cell fraction, selected proteins, summaries
-  diag_pattern_lines.csv    per-line leverage measures (all 375 lines, predictors only)
-  diag_pattern_summary.csv  Spearman / partial Spearman / tertile summaries"""
+"""Compute PACE-CF5 weight, cell-flag and missingness-pattern diagnostics.
+
+Usage:
+    python scripts/04_diagnostics.py [--debug]
+
+Generated CSV and JSON files are saved under results/raw/.
+With --debug, simulated responses are used and outputs go to results/debug/.
+"""
 import os, sys, json, warnings
 import numpy as np, pandas as pd
 from scipy.stats import spearmanr, rankdata
@@ -41,7 +42,7 @@ def cf5_with_weights(Xobs, y, M, seed=12345, folds=5):
     return b, wx, wy, om, U
 
 
-# ------------------------------------------------------------ per-drug full-data fits
+# per-drug full-data fits
 for drug in PANEL:
     Xnan, y, lines = drug_data(X, A, drug)
     if debug:
@@ -81,7 +82,7 @@ for drug in PANEL:
     print(drug, {k: (round(v, 3) if isinstance(v, float) else v) for k, v in info.items()
                  if k in ("n", "frac_cells_flagged", "frac_omega_lt_05", "spearman_omega_rowmissing")}, "size", len(sel))
 
-# ------------------------------------------------------------ pattern-distortion diagnostic (predictors only)
+# pattern-distortion diagnostic (predictors only)
 Xall = X.values.astype(float)
 med, sc = standardiser(Xall)
 Z, M = to_input(Xall, med, sc)
