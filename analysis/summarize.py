@@ -1,5 +1,4 @@
-"""Summaries of raw per-replicate CSVs.
-python analysis/summarize.py results/raw/<dir> [metric ...]"""
+"""Summaries of raw per-replicate CSVs."""
 import sys, glob, os
 import pandas as pd
 
