@@ -1,6 +1,4 @@
-"""Deterministic preprocessing (REAL_DATA_PROTOCOL.md, Section 2).
-Writes data_proc/X500.csv (lines x proteins, NaN = missing), data_proc/auc_panel.csv,
-data_proc/lines.csv (batch, lineage), data_proc/proteins.csv (filter statistics)."""
+"""Deterministic preprocessing ."""
 import os
 import numpy as np, pandas as pd
 
