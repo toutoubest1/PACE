@@ -1,5 +1,5 @@
 #!/bin/sh
-# All final (held-out seed block "final" = 7000+r) runs of the paper.  Lines are independent and can be
+# All final (held-out seed block "final" = 7000+r) runs .  Lines are independent and can be
 # run in parallel on different cores.  run.py is resumable.
 set -e
 cd "$(dirname "$0")/.."
