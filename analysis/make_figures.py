@@ -1,4 +1,4 @@
-"""Publication figures from raw results (PNG + PDF in results/figures).
+"""figures from raw results (PNG + PDF in results/figures).
 Palette: validated categorical slots 1-3 (blue, orange, aqua); marker shape is a secondary encoding."""
 import os, sys, glob
 import numpy as np, pandas as pd
