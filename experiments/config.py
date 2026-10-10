@@ -1,4 +1,4 @@
-"""Regimes, dimensions and seed blocks used in the paper.  Seed for replicate r of a block = SEED0 + r."""
+"""Regimes, dimensions and seed blocks used.  Seed for replicate r of a block = SEED0 + r."""
 N = 200
 P_MAIN = 300
 REGIMES = {
