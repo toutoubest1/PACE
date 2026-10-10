@@ -1,5 +1,5 @@
-"""Tables (LaTeX + CSV) and figures of the real-data application from results/raw.
-Usage: python scripts/05_tables_figures.py [--debug]"""
+"""Tables (LaTeX + CSV) and figures of the real-data application
+"""
 import os, sys, json, glob, itertools, warnings
 import numpy as np, pandas as pd
 import matplotlib
@@ -112,7 +112,7 @@ metric_table("Size", "rd_size.tex", "Selected model size $\\|\\hat\\beta\\|_0$."
 metric_table("Time", "rd_time.tex", "Computing time in seconds (single core, process time).", "tab:rd-time", d=1,
              note=common_note.replace(" Bold: best method for the drug (Null excluded).", ""))
 
-# ---------------------------------------------------------------- paired differences vs PACE-CF5 (MAE)
+# paired differences vs PACE-CF5 (MAE)
 rows = []
 for m in ORDER:
     if m == "PACE-CF5":
@@ -133,7 +133,7 @@ tex_table(P, "Paired difference in held-out MAE, method minus PACE-CF5 (positive
           "and the number of splits in which the method had a smaller MAE than PACE-CF5.", "tab:rd-paired",
           fname="rd_paired.tex", note=common_note.replace(" Bold: best method for the drug (Null excluded).", ""))
 
-# ---------------------------------------------------------------- stability
+#  stability
 coef = {}
 for f in sorted(glob.glob(os.path.join(RAW, "*_r[0-9][0-9]_coef.npz"))):
     base = os.path.basename(f)[:-9]
@@ -185,7 +185,7 @@ tex_table(S2, "Selection and coefficient stability across the training fits: mea
           "tab:rd-stability", fname="rd_stability.tex",
           note=f"{R_used} splits per drug. Pairs of empty models count as Jaccard 1 and cosine 0.")
 
-# ---------------------------------------------------------------- compact main-paper summary table
+# compact main-paper summary table
 rows = []
 for m in ORDER:
     r = {"Method": TEXNAME[m]}
@@ -211,7 +211,7 @@ tex_table(SM, "Real-data application, summary over the six drugs: held-out MAE r
           "selection stability (Jaccard), coefficient stability (cosine) and computing time.", "tab:rd-summary",
           fname="rd_summary.tex", note=f"{R_used} random 80/20 splits per drug, $p=500$ proteins. Per-drug results: Supplement~\\ref{{S-sec-rd}}.")
 
-# ---------------------------------------------------------------- PACE-CF5 full-data diagnostics
+# PACE-CF5 full-data diagnostics
 drows = []
 for dr in drugs:
     fj = os.path.join(RAW, f"diag_cells_{dr}.json")
@@ -249,7 +249,7 @@ if drows:
             f.write(f"{DRUGLAB[dr]} & {txt.replace('_', chr(92) + '_')} \\\\\n")
         f.write("\\bottomrule\n\\end{tabular}\n\\end{table}\n")
 
-# ---------------------------------------------------------------- pattern-distortion diagnostic
+# pattern-distortion diagnostic
 fp = os.path.join(RAW, "diag_pattern_lines.csv")
 if os.path.exists(fp):
     PL = pd.read_csv(fp)
@@ -337,7 +337,7 @@ for ext in ("pdf", "png"):
     fig.savefig(os.path.join(FIG, f"FigRD2_relative_mae.{ext}"), dpi=200)
 plt.close(fig)
 
-# ---------------------------------------------------------------- inline values for the manuscript
+#  inline values for the manuscript
 vals = {}
 pcf = R[R.Method == "PACE-CF5"].groupby("drug").relMAE.mean()
 vals["rd_pace_relmae_mean"] = f"{pcf.mean():.3f}"
@@ -349,7 +349,7 @@ with open(os.path.join(TAB, "rd_values.json"), "w") as f:
 print(json.dumps(vals, indent=1))
 print("tables:", sorted(os.listdir(TAB)))
 
-# ---------------------------------------------------------------- candidate datasets (selection stage)
+# candidate datasets (selection stage)
 fsel = os.path.join(ROOT, "results", "selection_profile.json")
 if os.path.exists(fsel):
     J = json.load(open(fsel))
@@ -376,7 +376,7 @@ if os.path.exists(fsel):
               fname="rd_candidates.tex", colfmt="lrrrrll")
 
 
-# ---------------------------------------------------------------- supplementary figures
+#  supplementary figures
 # S1: natural missingness of the analysed p = 500 matrix (predictors only)
 Xp = pd.read_csv(os.path.join(ROOT, "data_proc", "X500.csv"), index_col=0)
 Lp = pd.read_csv(os.path.join(ROOT, "data_proc", "lines.csv"), index_col=0)
@@ -421,7 +421,7 @@ for ext in ("pdf", "png"):
 plt.close(fig)
 print("figures:", sorted(os.listdir(FIG)))
 
-# ---------------------------------------------------------------- drug panel (selection rule; response values only)
+# drug panel (selection rule; response values only)
 Araw = pd.read_csv(os.path.join(ROOT, "data_proc", "auc_panel.csv"), index_col=0)
 Draw = pd.read_csv(os.path.join(ROOT, "data_proc", "drug_annotation.csv"), index_col=0)
 rows = []
