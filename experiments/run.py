@@ -1,7 +1,7 @@
 """Generic, resumable simulation runner.
 Example:
-  python experiments/run.py --out results/raw/final_main --regimes none,yonly --p 300 \
-         --block final --reps 20 --methods PACE,OLD-RLPD-MCP
+  python experiments/run.py ，out results/raw/final_main ，regimes none,yonly ，p 300 \
+         block final ，reps 20 ，methods PACE,OLD-RLPD-MCP
 One CSV per (regime, p, replicate) is written (checkpointing); results/merge happens in analysis/."""
 import argparse, os, sys, time, warnings
 warnings.filterwarnings("ignore")
