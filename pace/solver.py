@@ -122,7 +122,8 @@ def fit_path_select(S, r, s_yy, n, p_dim=None, penalty="lasso", n_lams=40, gamma
 
 
 def old_path(S, r, lams, penalty="lasso", a=3.7, gamma=3.0, n_lla=10):
-    """Old-code objective: penalty lam*|b_j| on ORIGINAL scale (LLA for SCAD/MCP)."""
+    """Regularisation path with penalties on the original coefficient scale.
+    SCAD and MCP use local linear approximation."""
     C, rc, sd = _standardize(S, r)
     p = C.shape[0]
     b = np.zeros(p)
@@ -149,7 +150,7 @@ def old_path(S, r, lams, penalty="lasso", a=3.7, gamma=3.0, n_lla=10):
 
 
 def old_ebic_select(S, r, n, penalty="lasso", gamma_ebic=0.0, n_lams=40, min_ratio=1e-4, max_ratio=0.5):
-    """Faithful re-implementation of old tuning.tune_lambda_ebic."""
+    """Select the baseline penalty using a penalised quadratic loss and EBIC term."""
     p = S.shape[0]
     lam_max = np.max(np.abs(r))
     lams = np.logspace(np.log10(lam_max * max_ratio), np.log10(lam_max * min_ratio), n_lams)
